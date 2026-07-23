@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us — ToolSphere</title>
+    <link rel="canonical" href="https://toolsphere.online/about.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .page-hero {
+            padding: 60px 24px 30px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(102,126,234,0.08), transparent 70%);
+        }
+        .page-hero h1 { font-size: 40px; font-weight: 800; }
+        .page-hero p { color: rgba(255,255,255,0.5); margin-top: 8px; }
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            padding: 40px 0;
+        }
+        .about-card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 20px;
+            padding: 30px 24px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: 0.3s;
+        }
+        .about-card:hover { transform: translateY(-6px); border-color: rgba(102,126,234,0.3); }
+        .about-card i { font-size: 40px; color: #667eea; margin-bottom: 16px; }
+        .about-card h3 { font-size: 20px; margin-bottom: 8px; }
+        .about-card p { color: rgba(255,255,255,0.5); font-size: 14px; line-height: 1.6; }
+        body.light-mode .about-card { background: rgba(255,255,255,0.6); }
+        body.light-mode .about-card p { color: rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-cube"></i><span>ToolSphere</span></div>
+            <div class="header-actions">
+                <button id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>About ToolSphere</h1>
+            <p>50 free tools — no limits, no signup, no payment.</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-card">
+                    <i class="fas fa-cube"></i>
+                    <h3>Our Mission</h3>
+                    <p>To provide free, high-quality tools that make everyday tasks easier for everyone.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Who We Serve</h3>
+                    <p>Students, professionals, content creators, developers, and anyone who needs quick tools.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-star"></i>
+                    <h3>Why ToolSphere?</h3>
+                    <p>All tools are 100% free, mobile-friendly, and privacy-focused. No hidden charges.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Our Vision</h3>
+                    <p>To become the most trusted platform for free online tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-brand"><h3><i class="fas fa-cube"></i> ToolSphere</h3><p>50 free tools.</p></div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="blog.html">Blog</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="terms-of-use.html">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 ToolSphere. All rights reserved.</p></div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.querySelector('#themeToggle i');
+            icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        }
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.querySelector('#themeToggle i').className = 'fas fa-sun';
+        }
+    </script>
+</body>
+</html>
