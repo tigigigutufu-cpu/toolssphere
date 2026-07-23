@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Counter — ToolSphere</title>
+    <meta name="description" content="Count words, characters, sentences, and paragraphs in your text with this free online Word Counter tool." />
+    <link rel="canonical" href="https://toolsphere.online/tools/tool-word-counter.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        .tool-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        .tool-container h1 {
+            font-size: 32px;
+            font-weight: 800;
+        }
+        .tool-container .subtitle {
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 24px;
+        }
+        .tool-container textarea {
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            min-height: 180px;
+            transition: 0.3s;
+        }
+        .tool-container textarea:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 30px rgba(102,126,234,0.08);
+        }
+        .tool-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .stat-box {
+            background: rgba(255,255,255,0.04);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .stat-box .number {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-box .label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+        }
+        .tool-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .tool-actions button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .tool-actions button:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(102,126,234,0.3);
+        }
+        .tool-actions button.secondary {
+            background: rgba(255,255,255,0.06);
+        }
+        .tool-actions button.secondary:hover {
+            background: rgba(255,255,255,0.12);
+        }
+        .tool-faq {
+            margin-top: 40px;
+        }
+        .tool-faq details {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .tool-faq summary {
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .tool-faq p {
+            margin-top: 12px;
+            color: rgba(255,255,255,0.6);
+            padding-left: 8px;
+        }
+        body.light-mode .tool-container textarea {
+            background: rgba(255,255,255,0.8);
+            color: #1a1a2e;
+            border-color: rgba(0,0,0,0.06);
+        }
+        body.light-mode .stat-box {
+            background: rgba(255,255,255,0.6);
+            border-color: rgba(0,0,0,0.04);
+        }
+        body.light-mode .stat-box .label {
+            color: rgba(0,0,0,0.4);
+        }
+        body.light-mode .tool-faq details {
+            background: rgba(255,255,255,0.6);
+        }
+        body.light-mode .tool-faq p {
+            color: rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-cube"></i><span>ToolSphere</span></div>
+            <div class="header-actions">
+                <button id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="tool-container">
+        <h1>📝 Word Counter</h1>
+        <p class="subtitle">Count words, characters, sentences, and paragraphs in your text.</p>
+
+        <textarea id="textInput" placeholder="Paste or type your text here..." oninput="updateStats()"></textarea>
+
+        <div class="tool-stats">
+            <div class="stat-box">
+                <div class="number" id="wordCount">0</div>
+                <div class="label">Words</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="charCount">0</div>
+                <div class="label">Characters</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="sentenceCount">0</div>
+                <div class="label">Sentences</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="paragraphCount">0</div>
+                <div class="label">Paragraphs</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="readingTime">0</div>
+                <div class="label">Reading Time (min)</div>
+            </div>
+        </div>
+
+        <div class="tool-actions">
+            <button onclick="clearText()">🔄 Clear</button>
+            <button onclick="copyText()">📋 Copy</button>
+            <button onclick="downloadText()">⬇️ Download</button>
+        </div>
+
+        <div class="tool-faq">
+            <h3>❓ FAQ</h3>
+            <details>
+                <summary>What is a word counter?</summary>
+                <p>A word counter counts the number of words, characters, sentences, and paragraphs in your text.</p>
+            </details>
+            <details>
+                <summary>Is this tool free?</summary>
+                <p>Yes! Word Counter is completely free to use with no limits.</p>
+            </details>
+            <details>
+                <summary>How is reading time calculated?</summary>
+                <p>Reading time is based on average reading speed of 200 words per minute.</p>
+            </details>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-brand"><h3><i class="fas fa-cube"></i> ToolSphere</h3><p>50 free tools.</p></div>
+            <div class="footer-links">
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../privacy-policy.html">Privacy</a>
+                <a href="../terms-of-use.html">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 ToolSphere. All rights reserved.</p></div>
+    </footer>
+
+    <script>
+        function updateStats() {
+            const text = document.getElementById('textInput').value;
+            
+            // Words
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            document.getElementById('wordCount').textContent = words;
+            
+            // Characters
+            document.getElementById('charCount').textContent = text.length;
+            
+            // Sentences
+            const sentences = text ? text.split(/[.!?]+/).filter(s => s.trim().length > 0).length : 0;
+            document.getElementById('sentenceCount').textContent = sentences;
+            
+            // Paragraphs
+            const paragraphs = text ? text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length : 0;
+            document.getElementById('paragraphCount').textContent = paragraphs || (text.trim() ? 1 : 0);
+            
+            // Reading Time (200 wpm)
+            const minutes = words > 0 ? Math.ceil(words / 200) : 0;
+            document.getElementById('readingTime').textContent = minutes;
+        }
+
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            updateStats();
+        }
+
+        function copyText() {
+            const text = document.getElementById('textInput').value;
+            if (!text) return alert('Nothing to copy!');
+            navigator.clipboard.writeText(text);
+            alert('✅ Copied to clipboard!');
+        }
+
+        function downloadText() {
+            const text = document.getElementById('textInput').value;
+            if (!text) return alert('Nothing to download!');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'word-counter-output.txt';
+            a.click();
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.querySelector('#themeToggle i');
+            icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        }
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.querySelector('#themeToggle i').className = 'fas fa-sun';
+        }
+    </script>
+</body>
+</html>
