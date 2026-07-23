@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy — ToolSphere</title>
+    <link rel="canonical" href="https://toolsphere.online/privacy-policy.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        .page-hero { padding: 60px 24px 30px; text-align: center; background: radial-gradient(ellipse at center, rgba(102,126,234,0.08), transparent 70%); }
+        .page-hero h1 { font-size: 40px; font-weight: 800; }
+        .page-hero p { color: rgba(255,255,255,0.5); margin-top: 8px; font-size: 14px; }
+        .legal-content { max-width: 800px; margin: 0 auto; padding: 20px 0 60px; }
+        .legal-content h2 { font-size: 22px; margin-top: 30px; margin-bottom: 12px; color: #667eea; }
+        .legal-content p { color: rgba(255,255,255,0.6); line-height: 1.8; font-size: 15px; }
+        .legal-content a { color: #667eea; text-decoration: none; }
+        body.light-mode .legal-content p { color: rgba(0,0,0,0.6); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-cube"></i><span>ToolSphere</span></div>
+            <div class="header-actions">
+                <button id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p>Last updated: 24 July 2026</p>
+        </div>
+    </section>
+
+    <section class="legal-section">
+        <div class="container">
+            <div class="legal-content">
+                <h2>1. Information We Collect</h2>
+                <p>ToolSphere does not collect, store, or share any personal information. All tools run locally in your browser. No data is sent to our servers.</p>
+
+                <h2>2. Cookies</h2>
+                <p>We use minimal cookies for theme preference (dark/light mode) and tool usage history. These are stored locally in your browser and are not shared with any third party.</p>
+
+                <h2>3. Third-Party Services</h2>
+                <p>Some tools use external APIs (Gemini, Hugging Face, Remove.bg). These services have their own privacy policies. We do not store any data sent to these APIs.</p>
+
+                <h2>4. Data Security</h2>
+                <p>All data processing happens locally in your browser. We do not have access to your files or information.</p>
+
+                <h2>5. Children's Privacy</h2>
+                <p>ToolSphere is safe for all ages. We do not collect any personal information from children.</p>
+
+                <h2>6. Contact Us</h2>
+                <p>If you have questions, please <a href="contact.html">contact us</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-brand"><h3><i class="fas fa-cube"></i> ToolSphere</h3><p>50 free tools.</p></div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="blog.html">Blog</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="terms-of-use.html">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 ToolSphere. All rights reserved.</p></div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.querySelector('#themeToggle i');
+            icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        }
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            document.querySelector('#themeToggle i').className = 'fas fa-sun';
+        }
+    </script>
+</body>
+</html>
