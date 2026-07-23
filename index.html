@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToolSphere — 50 Free Tools</title>
+    <meta name="description" content="ToolSphere — 50 free tools for everyone. No limits, no signup, 100% free." />
+    <link rel="canonical" href="https://toolsphere.online" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-cube"></i><span>ToolSphere</span></div>
+            <div class="search-bar-mini">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="miniSearch" placeholder="Search 50 tools..." oninput="filterTools(this.value)" />
+                    <button class="search-btn" onclick="filterTools(document.getElementById('miniSearch').value)">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div id="hero-3d"></div>
+        <div class="hero-content">
+            <h1>ToolSphere</h1>
+            <p>50 Free Tools — No Limits, No Signup, No Payment</p>
+            <div class="badge-stats">
+                <span><i class="fas fa-cube"></i> 50 Tools</span>
+                <span><i class="fas fa-star"></i> 100% Free</span>
+                <span><i class="fas fa-mobile-alt"></i> Mobile First</span>
+                <span><i class="fas fa-robot"></i> AI Assistant</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="tools-section">
+        <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-grid-2"></i> All Tools</h2>
+                <div class="category-filters" id="categoryFilters">
+                    <button class="active" data-category="all">All</button>
+                    <button data-category="text">Text</button>
+                    <button data-category="image">Image</button>
+                    <button data-category="seo">SEO</button>
+                    <button data-category="social">Social</button>
+                    <button data-category="design">Design</button>
+                    <button data-category="video">Video</button>
+                    <button data-category="pdf">PDF</button>
+                    <button data-category="code">Code</button>
+                    <button data-category="math">Math</button>
+                    <button data-category="network">Network</button>
+                    <button data-category="security">Security</button>
+                    <button data-category="utility">Utility</button>
+                    <button data-category="kids">Kids</button>
+                    <button data-category="islamic">Islamic</button>
+                </div>
+            </div>
+            <div class="tools-grid" id="toolsGrid"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-brand"><h3><i class="fas fa-cube"></i> ToolSphere</h3><p>50 free tools.</p></div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="blog.html">Blog</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="terms-of-use.html">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 ToolSphere. All rights reserved.</p></div>
+    </footer>
+
+    <script src="js/tools-data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.querySelector('#themeToggle i');
+            if (document.body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        }
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            const icon = document.querySelector('#themeToggle i');
+            if (icon) icon.className = 'fas fa-sun';
+        }
+    </script>
+</body>
+</html>
