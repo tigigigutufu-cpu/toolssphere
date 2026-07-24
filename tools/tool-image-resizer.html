@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Resizer — ToolSphere</title>
+    <link rel="canonical" href="https://toolsphere.online/tools/tool-image-resizer.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        .tool-container { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
+        .tool-container h1 { font-size: 32px; font-weight: 800; }
+        .tool-container .subtitle { color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+        .tool-container input[type="file"] { margin-bottom: 16px; }
+        .tool-container .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+        .tool-container .row input { flex: 1; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #fff; font-size: 16px; font-family: 'Inter', sans-serif; min-width: 80px; }
+        .tool-container .row input:focus { border-color: #667eea; outline: none; }
+        .tool-container button { padding: 10px 32px; border: none; border-radius: 30px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s; font-family: 'Inter', sans-serif; margin-top: 12px; }
+        .tool-container button:hover { transform: scale(1.04); box-shadow: 0 8px 30px rgba(102,126,234,0.3); }
+        .preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .preview-grid div { border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); text-align: center; padding: 12px; }
+        .preview-grid img { max-width: 100%; max-height: 200px; object-fit: contain; border-radius: 8px; }
+        .preview-grid .size { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 8px; }
+        .tool-faq { margin-top: 40px; }
+        .tool-faq details { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.04); }
+        .tool-faq summary { font-weight: 600; cursor: pointer; }
+        .tool-faq p { margin-top: 12px; color: rgba(255,255,255,0.6); padding-left: 8px; }
+        body.light-mode .preview-grid div { background: rgba(255,255,255,0.6); }
+        body.light-mode .preview-grid .size { color: rgba(0,0,0,0.4); }
+        body.light-mode .tool-faq details { background: rgba(255,255,255,0.6); }
+        body.light-mode .tool-faq p { color: rgba(0,0,0,0.5); }
+        body.light-mode .tool-container .row input { background: rgba(255,255,255,0.8); color: #1a1a2e; border-color: rgba(0,0,0,0.06); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-cube"></i><span>ToolSphere</span></div>
+            <div class="header-actions">
+                <button id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <section class="tool-container">
+        <h1>📐 Image Resizer</h1>
+        <p class="subtitle">Resize images to any dimension.</p>
+        <input type="file" id="imageInput" accept="image/*" onchange="loadImage(event)" />
+        <div class="row">
+            <input type="number" id="widthInput" placeholder="Width" value="300" min="1" />
+            <span style="color:rgba(255,255,255,0.3);">×</span>
+            <input type="number" id="heightInput" placeholder="Height" value="300" min="1" />
+            <button onclick="resizeImage()">Resize</button>
+        </div>
+        <div class="preview-grid">
+            <div><p style="color:rgba(255,255,255,0.3);">Original</p><img id="originalPreview" src="#" alt="Original" /><div class="size" id="originalSize">No image</div></div>
+            <div><p style="color:rgba(255,255,255,0.3);">Resized</p><img id="resizedPreview" src="#" alt="Resized" /><div class="size" id="resizedSize">No image</div></div>
+        </div>
+        <a id="downloadLink" download="resized.jpg" style="display:inline-block; margin-top:12px; padding:10px 32px; border-radius:30px; background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; text-decoration:none; font-weight:600;">⬇️ Download Resized</a>
+        <div class="tool-faq">
+            <h3>❓ FAQ</h3>
+            <details><summary>What is an image resizer?</summary><p>It resizes images to any width and height you choose.</p></details>
+            <details><summary>Is this tool free?</summary><p>Yes, 100% free!</p></details>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-brand"><h3><i class="fas fa-cube"></i> ToolSphere</h3><p>50 free tools.</p></div>
+            <div class="footer-links">
+                <a href="../about.html">About</a>
+                <a href="../contact.html">Contact</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../privacy-policy.html">Privacy</a>
+                <a href="../terms-of-use.html">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 ToolSphere. All rights reserved.</p></div>
+    </footer>
+
+    <script>
+        let originalImage = null;
+        function loadImage(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                originalImage = new Image();
+                originalImage.src = event.target.result;
+                originalImage.onload = function() {
+                    document.getElementById('originalPreview').src = event.target.result;
+                    document.getElementById('originalSize').textContent = originalImage.width + ' × ' + originalImage.height;
+                    document.getElementById('widthInput').value = originalImage.width;
+                    document.getElementById('heightInput').value = originalImage.height;
+                    resizeImage();
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+        function resizeImage() {
+            if (!originalImage) return;
+            const width = parseInt(document.getElementById('widthInput').value) || 300;
+            const height = parseInt(document.getElementById('heightInput').value) || 300;
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(originalImage, 0, 0, width, height);
+            const resized = canvas.toDataURL('image/jpeg', 0.92);
+            document.getElementById('resizedPreview').src = resized;
+            document.getElementById('resizedSize').textContent = width + ' × ' + height;
+            document.getElementById('downloadLink').href = resized;
+        }
+        function toggleTheme() { document.body.classList.toggle('light-mode'); const icon = document.querySelector('#themeToggle i'); icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon'; localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); }
+        if (localStorage.getItem('theme') === 'light') { document.body.classList.add('light-mode'); document.querySelector('#themeToggle i').className = 'fas fa-sun'; }
+    </script>
+</body>
+</html>
